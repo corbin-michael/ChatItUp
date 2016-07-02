@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>ChatItUp</title>
+        <link href="https://fonts.googleapis.com/css?family=News+Cycle" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Blog Post</h1>
+            <textarea id="blogPost" style="width:350px;height:100px;" placeholder="Type your post here..."></textarea><br>
+            <button class="btn btn-primary" id="submit">Submit Post</button>
+
+            <ul id="entries">
+
+            </ul>
+
+            <h3>Not a member? Sign Up</h3>
+            <p><input type="text" id="email" placeholder="Email"></p>
+            <p><input type="password" id="password" placeholder="Password"></p>
+            <p><button class="btn btn-success" id="sign_up">Sign Up</button></p>
+        </div>
+
+
+        <!-- jquery -->
+        <script src="js/jquery.min.js"></script>
+        <!-- firebase -->
+        <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+        <script src="js/firebaseConfig.js"></script>
+        <script>
+            $(function() {
+                // submit a blog entry
+                function submitPost() {
+                    var $blogPost = $('#blogPost');
+                    var timeStamp = new Date();
+
+                    database.ref('blogEntries/').push({
+                        post    : $blogPost.val(),
+                        time    : timeStamp.getTime()
+                    });
+
+                    $blogPost.val("");
+                }
+                // add blog entries to list
+                function retrievePosts() {
+                    var $entries = $('#entries');
+
+                    database.ref('blogEntries/').on('value', function(snapshot) {
+                        $entries.append('<li>' + snapshot.val().post + '</li>');
+                    });
+                    console.log("post: " + snapshot.val().post);
+                }
+
+                function signUp() {
+                    var $email = $('#email').val();
+                    var $password = $('#password').val();
+
+                    firebase.auth().createUserWithEmailAndPassword($email, $password).catch(function(error) {
+                        // Handle Errors here.
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                    });
+
+                    $('#email').val("");
+                    $('#password').val("");
+                }
+
+                $('#submit').click(function(){
+                    submitPost();
+                });
+
+                $('#sign_up').click(function(){
+                    signUp();
+                });
+
+            });
+        </script>
+    </body>
+</html>

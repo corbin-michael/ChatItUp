@@ -1,0 +1,7 @@
+body {
+    font-family: 'News Cycle', sans-serif;
+}
+textarea,
+p, li, a {
+    font-size: 1.2em;
+}
