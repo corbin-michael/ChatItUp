@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="barstoolBets">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,13 +11,19 @@
     </head>
     <body>
         <div class="container">
-            <h1>Blog Post</h1>
-            <textarea id="blogPost" style="width:350px;height:100px;" placeholder="Type your post here..."></textarea><br>
-            <button class="btn btn-primary" id="submit">Submit Post</button>
+            <div ng-controller="blogPosts">
+                <h1>Blog Post</h1>
+                <textarea ng-model="blogPost" style="width:350px;height:100px;" placeholder="Type your post here..."></textarea><br>
+                <button class="btn btn-primary" ng-click="submitPost()">Submit Post</button>
 
-            <ul id="entries">
 
-            </ul>
+                <ul id="entries">
+                    <li ng-repeat="post in blogEntries | orderBy:time">
+                        Post: {{ post.post }}<br>
+                        Post On: {{ post.time | date:'MMM d, yyyy' }}
+                    </li>
+                </ul>
+            </div>
 
             <h3>Not a member? Sign Up</h3>
             <p><input type="text" id="email" placeholder="Email"></p>
@@ -28,32 +34,17 @@
 
         <!-- jquery -->
         <script src="js/jquery.min.js"></script>
+        <!-- AngularJS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
         <!-- firebase -->
         <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
         <script src="js/firebaseConfig.js"></script>
+        <!-- AngularFire -->
+        <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
+        <script src="js/app.js"></script>
         <script>
             $(function() {
-                // submit a blog entry
-                function submitPost() {
-                    var $blogPost = $('#blogPost');
-                    var timeStamp = new Date();
 
-                    database.ref('blogEntries/').push({
-                        post    : $blogPost.val(),
-                        time    : timeStamp.getTime()
-                    });
-
-                    $blogPost.val("");
-                }
-                // add blog entries to list
-                function retrievePosts() {
-                    var $entries = $('#entries');
-
-                    database.ref('blogEntries/').on('value', function(snapshot) {
-                        $entries.append('<li>' + snapshot.val().post + '</li>');
-                    });
-                    console.log("post: " + snapshot.val().post);
-                }
 
                 function signUp() {
                     var $email = $('#email').val();

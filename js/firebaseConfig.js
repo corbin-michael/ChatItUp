@@ -9,3 +9,4 @@ firebase.initializeApp(config);
 
 // get a refrence to the database
 const database = firebase.database();
+const auth = firebase.auth();

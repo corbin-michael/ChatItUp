@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>ChatItUp</title>
+        <link href="https://fonts.googleapis.com/css?family=News+Cycle" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body>
+        <div class="container">
+
+            <h1 id="welcome"></h1>
+
+            <h3>Login</h3>
+            <p><input type="text" id="email" placeholder="Email"></p>
+            <p><input type="password" id="password" placeholder="Password"></p>
+            <p><button class="btn btn-success" id="login">Login</button><button class="btn btn-warning" id="logout">Logout</button></p>
+            <p></p>
+        </div>
+
+
+        <!-- jquery -->
+        <script src="js/jquery.min.js"></script>
+        <!-- firebase -->
+        <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+        <script src="js/firebaseConfig.js"></script>
+        <script>
+            $(function() {
+
+                auth.onAuthStateChanged(function(user) {
+                  if (user) {
+                    // User is signed in.
+                    $('#welcome').html('Welcome ' + user.email);
+                  } else {
+                    // No user is signed in.
+                    $('#welcome').html('Welcome, please sign in.');
+                  }
+                });
+
+                function login() {
+                    var email = $('#email').val();
+                    var password = $('#password').val();
+
+                    auth.signInWithEmailAndPassword(email, password).catch(function(error) {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        if (errorMessage || errorCode) {
+                            console.log(errorMessage);
+                            console.log(errorCode);
+                        } else {
+
+                        }
+                    });
+                }
+
+                function logout() {
+                    auth.signOut().then(function(){
+                        // $(location).attr('href', 'index.html');
+                    }, function(error) {
+                        console.log("error: " + error);
+                    });
+                }
+
+                $('#login').click(function(){
+                    login();
+                });
+
+                $('#logout').click(function() {
+                    logout();
+                });
+
+            });
+        </script>
+    </body>
+</html>
