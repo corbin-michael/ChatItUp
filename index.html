@@ -27,7 +27,7 @@
                 </ul>
             </div> -->
 
-        <div ng-controller="signUpCtrl" id="signUpForm">
+        <div ng-controller="signUpCtrl" id="signUpForm" style="border-top: 5px solid">
             <h1>Become a chugger</h1>
             <p><input type="text" ng-model="email" placeholder="Email"></p>
             <p><input type="text" ng-model="firstName" placeholder="First Name"></p>
@@ -41,9 +41,10 @@
         <div ng-controller="addFriend">
             <h1>Add a chugger!</h1>
                 <div ng-repeat="user in allUsers">
-                    <h3>{{ user.userInfo.userName }}</h3>
-                    <p><i>Chugging Name: {{ user.userInfo.firstName + " " + user.userInfo.lastName }}</i></p>
-                    <button ng-click="addNewFriend()">+ Add {{ user.userInfo.userName }}</button>
+                    <h3>{{ user.userName }}</h3>
+                    <p><i>Chugging Name: {{ user.firstName + " " + user.lastName }}</i></p>
+                    <p>UID: {{ user.uid }}</p>
+                    <button ng-click="addNewFriend()">+ Add {{ user.userName }}</button>
                 </div>
         </div>
 

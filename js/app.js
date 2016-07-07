@@ -8,23 +8,21 @@ app.controller("signUpCtrl", function($scope, $firebaseArray) {
         var $userName = $scope.userName;
         var $password = $scope.password;
 
-        firebase.auth().createUserWithEmailAndPassword($email, $password).catch(function(error) {
+        firebase.auth().createUserWithEmailAndPassword($email, $password).then(function(user){
+            database.ref('/users').child(user.uid).set({
+                email       : $email,
+                firstName   : $firstName,
+                lastName    : $lastName,
+                userName    : $userName,
+                uid         : user.uid
+            });
+        }).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
             console.log(errorCode);
             console.log(errorMessage);
         });
-
-        database.ref('/users').set({
-            userInfo : {
-                email : $email,
-                firstName : $firstName,
-                lastName  : $lastName,
-                userName  : $userName,
-                uid       : null
-            }
-        })
 
         $scope.email = "";
         $scope.firstName = "";
@@ -77,21 +75,3 @@ app.controller("addFriend", function($scope, $firebaseArray) {
 //     var file = $scope.profilePic;
 //     console.log(file);
 // });
-
-auth.onAuthStateChanged(function(user) {
-  if (user) {
-    var dbUserRef = database.ref().child('/users/' + user.uid);
-    var uidRef = user.uid;
-
-    dbUserRef.set({
-        userInfo : {
-            uid : uidRef
-        }
-    });
-
-    console.log(uidRef);
-  } else {
-    // No user is signed in.
-    $('#welcome').html('Welcome, please sign in.');
-  }
-});
