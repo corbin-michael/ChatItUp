@@ -18,17 +18,19 @@
 
 
                 <ul id="entries">
-                    <li ng-repeat="post in blogEntries | orderBy:time">
+                    <li ng-repeat="post in blogEntries | orderBy:'-time'">
                         Post: {{ post.post }}<br>
                         Post On: {{ post.time | date:'MMM d, yyyy' }}
                     </li>
                 </ul>
             </div>
 
+        <div ng-controller="signUpCtrl" id="signUpForm">
             <h3>Not a member? Sign Up</h3>
-            <p><input type="text" id="email" placeholder="Email"></p>
-            <p><input type="password" id="password" placeholder="Password"></p>
-            <p><button class="btn btn-success" id="sign_up">Sign Up</button></p>
+            <p><input type="text" ng-model="email" id="email" placeholder="Email"></p>
+            <p><input type="password" ng-model="password" id="password" placeholder="Password"></p>
+            <p><button class="btn btn-success" ng-click="signUpUser()">Sign Up</button></p>
+            <p><a href="login.html" class="btn btn-primary">Login</a></p>
         </div>
 
 
