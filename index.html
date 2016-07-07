@@ -11,7 +11,9 @@
     </head>
     <body>
         <div class="container">
-            <div ng-controller="blogPosts">
+            <h1>Chug</h1>
+            <h2><i>See a chug send a chug</i></h2>
+            <!-- <div ng-controller="blogPosts">
                 <h1>Blog Post</h1>
                 <textarea ng-model="blogPost" style="width:350px;height:100px;" placeholder="Type your post here..."></textarea><br>
                 <button class="btn btn-primary" ng-click="submitPost()">Submit Post</button>
@@ -23,14 +25,26 @@
                         Post On: {{ post.time | date:'MMM d, yyyy' }}
                     </li>
                 </ul>
-            </div>
+            </div> -->
 
         <div ng-controller="signUpCtrl" id="signUpForm">
-            <h3>Not a member? Sign Up</h3>
-            <p><input type="text" ng-model="email" id="email" placeholder="Email"></p>
-            <p><input type="password" ng-model="password" id="password" placeholder="Password"></p>
+            <h1>Become a chugger</h1>
+            <p><input type="text" ng-model="email" placeholder="Email"></p>
+            <p><input type="text" ng-model="firstName" placeholder="First Name"></p>
+            <p><input type="text" ng-model="lastName" placeholder="Last Name"></p>
+            <p><input type="text" ng-model="userName" placeholder="Username"></p>
+            <p><input type="password" ng-model="password" placeholder="Password"></p>
             <p><button class="btn btn-success" ng-click="signUpUser()">Sign Up</button></p>
             <p><a href="login.html" class="btn btn-primary">Login</a></p>
+        </div>
+
+        <div ng-controller="addFriend">
+            <h1>Add a chugger!</h1>
+                <div ng-repeat="user in allUsers">
+                    <h3>{{ user.userInfo.userName }}</h3>
+                    <p><i>Chugging Name: {{ user.userInfo.firstName + " " + user.userInfo.lastName }}</i></p>
+                    <button ng-click="addNewFriend()">+ Add {{ user.userInfo.userName }}</button>
+                </div>
         </div>
 
 
@@ -48,27 +62,27 @@
             $(function() {
 
 
-                function signUp() {
-                    var $email = $('#email').val();
-                    var $password = $('#password').val();
-
-                    firebase.auth().createUserWithEmailAndPassword($email, $password).catch(function(error) {
-                        // Handle Errors here.
-                        var errorCode = error.code;
-                        var errorMessage = error.message;
-                    });
-
-                    $('#email').val("");
-                    $('#password').val("");
-                }
-
-                $('#submit').click(function(){
-                    submitPost();
-                });
-
-                $('#sign_up').click(function(){
-                    signUp();
-                });
+                // function signUp() {
+                //     var $email = $('#email').val();
+                //     var $password = $('#password').val();
+                //
+                //     firebase.auth().createUserWithEmailAndPassword($email, $password).catch(function(error) {
+                //         // Handle Errors here.
+                //         var errorCode = error.code;
+                //         var errorMessage = error.message;
+                //     });
+                //
+                //     $('#email').val("");
+                //     $('#password').val("");
+                // }
+                //
+                // $('#submit').click(function(){
+                //     submitPost();
+                // });
+                //
+                // $('#sign_up').click(function(){
+                //     signUp();
+                // });
 
             });
         </script>

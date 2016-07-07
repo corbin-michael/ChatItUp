@@ -33,7 +33,7 @@
                 auth.onAuthStateChanged(function(user) {
                   if (user) {
                     // User is signed in.
-                    $('#welcome').html('Welcome ' + user.email);
+                    $('#welcome').html('Welcome ' + user.uid);
                   } else {
                     // No user is signed in.
                     $('#welcome').html('Welcome, please sign in.');
