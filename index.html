@@ -40,7 +40,8 @@
 
         <div ng-controller="addFriend">
             <h1>Add a chugger!</h1>
-                <div ng-repeat="user in allUsers">
+            <p>Current: {{ currentDudeID }}</p>
+                <div ng-repeat="user in allUsers" ng-if="currentDudeID != user.uid">
                     <h3>{{ user.userName }}</h3>
                     <p><i>Chugging Name: {{ user.firstName + " " + user.lastName }}</i></p>
                     <p>UID: {{ user.uid }}</p>
@@ -59,33 +60,5 @@
         <!-- AngularFire -->
         <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
         <script src="js/app.js"></script>
-        <script>
-            $(function() {
-
-
-                // function signUp() {
-                //     var $email = $('#email').val();
-                //     var $password = $('#password').val();
-                //
-                //     firebase.auth().createUserWithEmailAndPassword($email, $password).catch(function(error) {
-                //         // Handle Errors here.
-                //         var errorCode = error.code;
-                //         var errorMessage = error.message;
-                //     });
-                //
-                //     $('#email').val("");
-                //     $('#password').val("");
-                // }
-                //
-                // $('#submit').click(function(){
-                //     submitPost();
-                // });
-                //
-                // $('#sign_up').click(function(){
-                //     signUp();
-                // });
-
-            });
-        </script>
     </body>
 </html>

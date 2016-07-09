@@ -32,6 +32,8 @@ app.controller("signUpCtrl", function($scope, $firebaseArray) {
     }
 });
 
+
+
 app.controller("blogPosts", function($scope, $firebaseArray) {
     var dbRef = database.ref().child('/blogEntries');
 
@@ -51,15 +53,25 @@ app.controller("blogPosts", function($scope, $firebaseArray) {
 });
 
 app.controller("addFriend", function($scope, $firebaseArray) {
-    var dbRef = database.ref().child('/users');
+    var dbRef = database.ref().child('/users/');
+
     $scope.allUsers = $firebaseArray(dbRef);
+    auth.onAuthStateChanged(function(user) {
+        if ( user ) {
+            $scope.currentDudeID = user.uid;
+        } else {
+            $scope.currentDudeID = null;
+        }
+    });
 
     $scope.addNewFriend = function() {
-        database.ref('myFriends').push({
-
-        });
+        auth.onAuthStateChanged(function(user) {
+            database.ref('/users/' + user.uid).push({});
+        }
     }
 });
+
+
 
 // app.controller("createFriendGroup", function($scope, $firebaseArray) {
 //     var dbRef = database.ref().child('/friendGroups');
