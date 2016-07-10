@@ -39,14 +39,21 @@
         </div>
 
         <div ng-controller="addFriend">
-            <h1>Add a chugger!</h1>
+            <h1>Add from all users!</h1>
             <p>Current: {{ currentDudeID }}</p>
                 <div ng-repeat="user in allUsers" ng-if="currentDudeID != user.uid">
                     <h3>{{ user.userName }}</h3>
                     <p><i>Chugging Name: {{ user.firstName + " " + user.lastName }}</i></p>
-                    <p>UID: {{ user.uid }}</p>
-                    <button ng-click="addNewFriend()">+ Add {{ user.userName }}</button>
+                    <input type="hidden" ng-model="friendUID" value="{{user.uid}}">
+                    <button ng-click="addNewFriend(user.uid, user.firstName, user.lastName, user.email, user.userName)">+ Add {{ user.userName }}</button>
                 </div>
+        </div>
+
+        <div ng-controller="myFriends">
+            <h1>Your friends</h1>
+            <div ng-repeat="friend in allFriends">
+                <h3>{{ friend.friendID }}</h3>
+            </div>
         </div>
 
 

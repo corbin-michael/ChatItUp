@@ -64,11 +64,24 @@ app.controller("addFriend", function($scope, $firebaseArray) {
         }
     });
 
-    $scope.addNewFriend = function() {
+    $scope.addNewFriend = function(friendUID, friendFN, friendLN, friendE, friendU) {
         auth.onAuthStateChanged(function(user) {
-            database.ref('/users/' + user.uid).push({});
-        }
+            database.ref().child('users').child(user.uid).child('myFriends').push({
+                friendID        : friendUID,
+                friendFirstName : friendFN,
+                friendLastName  : friendLN,
+                friendEmail     : friendE,
+                friendUserName  : friendU
+            });
+        });
     }
+});
+
+app.controller("myFriends", function($scope, $firebaseArray) {
+    auth.onAuthStateChanged(function(user) {
+        var dbRef = database.ref().child('user').child(user.uid).child('myFriends');
+        $scope.allFriends = $firebaseArray(dbRef);
+    });
 });
 
 
