@@ -79,9 +79,15 @@ app.controller("addFriend", function($scope, $firebaseArray) {
 
 app.controller("myFriends", function($scope, $firebaseArray) {
     auth.onAuthStateChanged(function(user) {
-        var dbRef = database.ref().child('user').child(user.uid).child('myFriends');
-        $scope.allFriends = $firebaseArray(dbRef);
+        var friendRef = database.ref().child('users').child(user.uid).child('myFriends');
+        var arrayFriends = $firebaseArray(friendRef);
+        $scope.allFriends = arrayFriends;
+
+        $scope.deleteFriend = function(key) {
+            arrayFriends.$remove(key);
+        }
     });
+
 });
 
 

@@ -51,8 +51,11 @@
 
         <div ng-controller="myFriends">
             <h1>Your friends</h1>
-            <div ng-repeat="friend in allFriends">
-                <h3>{{ friend.friendID }}</h3>
+            <div ng-repeat="(key, friend) in allFriends">
+                <h3>User: {{ friend.friendUserName }}</h3>
+                <p>Email: {{ friend.friendEmail }}</p>
+                <p>Key: {{ key }}</p>
+                <button class="btn btn-danger" ng-click="deleteFriend(key)">Remove Friend</button>
             </div>
         </div>
 
