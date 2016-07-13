@@ -41,6 +41,7 @@
         <div ng-controller="addFriend" class="allUsers">
             <h1>Add from all users!</h1>
             <p>Current: {{ currentDudeID }}</p>
+            <p>Current Email: {{ useremail }}
                 <div ng-repeat="user in allUsers" ng-if="currentDudeID != user.uid">
                     <h3>{{ user.userName }}</h3>
                     <p><i>Chugging Name: {{ user.firstName + " " + user.lastName }}</i></p>
