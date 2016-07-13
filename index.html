@@ -45,7 +45,7 @@
                     <h3>{{ user.userName }}</h3>
                     <p><i>Chugging Name: {{ user.firstName + " " + user.lastName }}</i></p>
                     <input type="hidden" ng-model="friendUID" value="{{user.uid}}">
-                    <button ng-click="addNewFriend(user.uid, user.firstName, user.lastName, user.email, user.userName)">+ Add {{ user.userName }}</button>
+                    <button class="btn btn-primary" ng-click="addNewFriend(user.uid, user.firstName, user.lastName, user.email, user.userName)">+ Add {{ user.userName }}</button>
                 </div>
         </div>
 
@@ -54,7 +54,6 @@
             <div ng-repeat="(key, friend) in allFriends">
                 <h3>User: {{ friend.friendUserName }}</h3>
                 <p>Email: {{ friend.friendEmail }}</p>
-                <p>Key: {{ key }}</p>
                 <button class="btn btn-danger" ng-click="deleteFriend(key)">Remove Friend</button>
             </div>
         </div>
