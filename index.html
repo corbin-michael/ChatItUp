@@ -38,7 +38,7 @@
             <p><a href="login.html" class="btn btn-primary">Login</a></p>
         </div>
 
-        <div ng-controller="addFriend">
+        <div ng-controller="addFriend" class="allUsers">
             <h1>Add from all users!</h1>
             <p>Current: {{ currentDudeID }}</p>
                 <div ng-repeat="user in allUsers" ng-if="currentDudeID != user.uid">
@@ -49,7 +49,7 @@
                 </div>
         </div>
 
-        <div ng-controller="myFriends">
+        <div ng-controller="myFriends" class="currentFriends">
             <h1>Your friends</h1>
             <div ng-repeat="(key, friend) in allFriends">
                 <h3>User: {{ friend.friendUserName }}</h3>
