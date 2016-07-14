@@ -59,6 +59,7 @@ app.controller("friendsCtrl", function($scope, $firebaseArray) {
     auth.onAuthStateChanged(function(user) {
         if ( user ) {
             $scope.currentDudeID = user.uid;
+            $scope.useremail = user.email;
         } else {
             $scope.currentDudeID = null;
         }

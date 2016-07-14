@@ -27,44 +27,42 @@
                 </ul>
             </div> -->
 
-        <div ng-controller="signUpCtrl" id="signUpForm" style="border-top: 5px solid">
-            <h1>Become a chugger</h1>
-            <p><input type="text" ng-model="email" placeholder="Email"></p>
-            <p><input type="text" ng-model="firstName" placeholder="First Name"></p>
-            <p><input type="text" ng-model="lastName" placeholder="Last Name"></p>
-            <p><input type="text" ng-model="userName" placeholder="Username"></p>
-            <p><input type="password" ng-model="password" placeholder="Password"></p>
-            <p><button class="btn btn-success" ng-click="signUpUser()">Sign Up</button></p>
-            <p><a href="login.html" class="btn btn-primary">Login</a></p>
-        </div>
+            <div ng-controller="signUpCtrl" id="signUpForm" style="border-top: 5px solid">
+                <h1>Become a chugger</h1>
+                <p><input type="text" ng-model="email" placeholder="Email"></p>
+                <p><input type="text" ng-model="firstName" placeholder="First Name"></p>
+                <p><input type="text" ng-model="lastName" placeholder="Last Name"></p>
+                <p><input type="text" ng-model="userName" placeholder="Username"></p>
+                <p><input type="password" ng-model="password" placeholder="Password"></p>
+                <p><button class="btn btn-success" ng-click="signUpUser()">Sign Up</button></p>
+                <p><a href="login.html" class="btn btn-primary">Login</a></p>
+            </div>
 
-        <div ng-controller="friendsCtrl">
-            <div class="allUsers">
-                <h1>Add from all users!</h1>
-                <p>Current: {{ currentDudeID }}</p>
-                    <div ng-repeat="user in allUsers" ng-if="currentDudeID != user.uid">
-                        <h3>{{ user.userName }}</h3>
-                        <p><i>Chugging Name: {{ user.firstName + " " + user.lastName }}</i></p>
-                        <input type="hidden" ng-model="friendUID" value="{{user.uid}}">
-                        <button class="btn btn-primary" ng-click="addNewFriend(user.uid, user.firstName, user.lastName, user.email, user.userName)">+ Add {{ user.userName }}</button>
+
+            <div ng-controller="friendsCtrl">
+                <div class="allUsers">
+                    <h1>Add from all users!</h1>
+                    <p>Current: {{ currentDudeID }}</p>
+                        <div ng-repeat="user in allUsers" ng-if="currentDudeID != user.uid">
+                            <h3>{{ user.userName }}</h3>
+                            <p><i>Chugging Name: {{ user.firstName + " " + user.lastName }}</i></p>
+                            <input type="hidden" ng-model="friendUID" value="{{user.uid}}">
+                            <button class="btn btn-primary" ng-click="addNewFriend(user.uid, user.firstName, user.lastName, user.email, user.userName)">+ Add {{ user.userName }}</button>
+                        </div>
+                </div>
+                <div class="currentFriends">
+                    <h1>Your friends</h1>
+                    <div ng-repeat="(key, friend) in allFriends">
+                        <h3>User: {{ friend.friendUserName }}</h3>
+                        <p>Email: {{ friend.friendEmail }}</p>
+                        <button class="btn btn-danger" ng-click="deleteFriend(key)">Remove Friend</button>
                     </div>
-            </div>
-
-            <div class="compare">
-                <ul id="compare_list">
-
-                </ul>
-            </div>
-
-            <div class="currentFriends">
-                <h1>Your friends</h1>
-                <div ng-repeat="(key, friend) in allFriends">
-                    <h3>User: {{ friend.friendUserName }}</h3>
-                    <p>Email: {{ friend.friendEmail }}</p>
-                    <button class="btn btn-danger" ng-click="deleteFriend(key)">Remove Friend</button>
                 </div>
             </div>
+
         </div>
+
+
 
 
         <!-- jquery -->
