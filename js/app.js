@@ -52,7 +52,7 @@ app.controller("blogPosts", function($scope, $firebaseArray) {
     }
 });
 
-app.controller("addFriend", function($scope, $firebaseArray) {
+app.controller("friendsCtrl", function($scope, $firebaseArray) {
     var dbRef = database.ref().child('/users/');
 
     $scope.allUsers = $firebaseArray(dbRef);
@@ -75,9 +75,7 @@ app.controller("addFriend", function($scope, $firebaseArray) {
             });
         });
     }
-});
 
-app.controller("myFriends", function($scope, $firebaseArray) {
     auth.onAuthStateChanged(function(user) {
         var friendRef = database.ref().child('users').child(user.uid).child('myFriends');
         var arrayFriends = $firebaseArray(friendRef);
@@ -86,7 +84,16 @@ app.controller("myFriends", function($scope, $firebaseArray) {
         $scope.deleteFriend = function(key) {
             arrayFriends.$remove(key);
         }
+
+        friendRef.once('value').then(function(snapshot) {
+            snapshot.forEach(function(data){
+                console.log("FriendID: " + data.val().friendID);
+                console.log("FriendFirstName: " + data.val().friendFirstName);
+            });
+        });
+
     });
+
 
 });
 
