@@ -80,18 +80,29 @@ app.controller("friendsCtrl", function($scope, $firebaseArray) {
     auth.onAuthStateChanged(function(user) {
         var friendRef = database.ref().child('users').child(user.uid).child('myFriends');
         var arrayFriends = $firebaseArray(friendRef);
+        var everyUser = $firebaseArray(dbRef);
+        var compAllUsers = [];
+        var compAllFriends = [];
+
+
+        dbRef.once('value').then(function(snapshot){
+            snapshot.forEach(function(data){
+                compAllUsers.push(data.key);
+            });
+        });
+        friendRef.once('value').then(function(snapshot) {
+            snapshot.forEach(function(data){
+                compAllFriends.push(data.val().friendID);
+            });
+        });
+
         $scope.allFriends = arrayFriends;
 
         $scope.deleteFriend = function(key) {
             arrayFriends.$remove(key);
         }
 
-        friendRef.once('value').then(function(snapshot) {
-            snapshot.forEach(function(data){
-                console.log("FriendID: " + data.val().friendID);
-                console.log("FriendFirstName: " + data.val().friendFirstName);
-            });
-        });
+
 
     });
 
