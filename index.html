@@ -13,19 +13,6 @@
         <div class="container">
             <h1>Chug</h1>
             <h2><i>See a chug send a chug</i></h2>
-            <!-- <div ng-controller="blogPosts">
-                <h1>Blog Post</h1>
-                <textarea ng-model="blogPost" style="width:350px;height:100px;" placeholder="Type your post here..."></textarea><br>
-                <button class="btn btn-primary" ng-click="submitPost()">Submit Post</button>
-
-
-                <ul id="entries">
-                    <li ng-repeat="post in blogEntries | orderBy:'-time'">
-                        Post: {{ post.post }}<br>
-                        Post On: {{ post.time | date:'MMM d, yyyy' }}
-                    </li>
-                </ul>
-            </div> -->
 
             <div ng-controller="signUpCtrl" id="signUpForm" style="border-top: 5px solid">
                 <h1>Become a chugger</h1>
@@ -45,13 +32,11 @@
                     <p>Current: {{ currentDudeID }}</p>
 
                     <div ng-repeat="user in allUsers" ng-if="currentDudeID != user.uid">
-                        <div ng-repeat="friend in allFriends" ng-if="friend.friendID != user.uid">
-                            <h3>{{ user.userName }}</h3>
-                            <h3>{{ friend.friendID }}</h3>
-                            <p><i>Chugging Name: {{ user.firstName + " " + user.lastName }}</i></p>
-                            <input type="hidden" ng-model="friendUID" value="{{user.uid}}">
-                            <button class="btn btn-primary" ng-click="addNewFriend(user.uid, user.firstName, user.lastName, user.email, user.userName)">+ Add {{ user.userName }}</button>
-                        </div>
+                        <h3>{{ user.userName }}</h3>
+                        <h3>{{ friend.friendID }}</h3>
+                        <p><i>Chugging Name: {{ user.firstName + " " + user.lastName }}</i></p>
+                        <input type="hidden" ng-model="friendUID" value="{{user.uid}}">
+                        <button class="btn btn-primary" ng-click="addNewFriend(user.uid, user.firstName, user.lastName, user.email, user.userName)">+ Add {{ user.userName }}</button>
                     </div>
                 </div>
 

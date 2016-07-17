@@ -32,26 +32,6 @@ app.controller("signUpCtrl", function($scope, $firebaseArray) {
     }
 });
 
-
-
-app.controller("blogPosts", function($scope, $firebaseArray) {
-    var dbRef = database.ref().child('/blogEntries');
-
-    $scope.blogEntries = $firebaseArray(dbRef);
-
-    // submit a blog entry
-    $scope.submitPost = function() {
-        var timeStamp = new Date();
-
-        database.ref('blogEntries/').push({
-            post    : $scope.blogPost,
-            time    : timeStamp.getTime()
-        });
-
-        $scope.blogPost = "";
-    }
-});
-
 app.controller("friendsCtrl", function($scope, $firebaseArray) {
     var dbRef = database.ref().child('users');
     var compAllUsers = [];
