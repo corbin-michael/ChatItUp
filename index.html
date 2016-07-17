@@ -43,22 +43,30 @@
                 <div class="allUsers">
                     <h1>Add from all users!</h1>
                     <p>Current: {{ currentDudeID }}</p>
-                        <div ng-repeat="user in allUsers" ng-if="currentDudeID != user.uid">
+
+                    <div ng-repeat="user in allUsers" ng-if="currentDudeID != user.uid">
+                        <div ng-repeat="friend in allFriends" ng-if="friend.friendID != user.uid">
                             <h3>{{ user.userName }}</h3>
+                            <h3>{{ friend.friendID }}</h3>
                             <p><i>Chugging Name: {{ user.firstName + " " + user.lastName }}</i></p>
                             <input type="hidden" ng-model="friendUID" value="{{user.uid}}">
                             <button class="btn btn-primary" ng-click="addNewFriend(user.uid, user.firstName, user.lastName, user.email, user.userName)">+ Add {{ user.userName }}</button>
                         </div>
+                    </div>
                 </div>
+
                 <div class="currentFriends">
                     <h1>Your friends</h1>
-                    <div ng-repeat="(key, friend) in allFriends">
+                    <div ng-repeat="(key, friend) in allFriends track by friend.friendID">
                         <h3>User: {{ friend.friendUserName }}</h3>
                         <p>Email: {{ friend.friendEmail }}</p>
                         <button class="btn btn-danger" ng-click="deleteFriend(key)">Remove Friend</button>
                     </div>
                 </div>
+
             </div>
+
+
         </div>
 
 

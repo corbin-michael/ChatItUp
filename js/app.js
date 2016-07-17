@@ -53,7 +53,9 @@ app.controller("blogPosts", function($scope, $firebaseArray) {
 });
 
 app.controller("friendsCtrl", function($scope, $firebaseArray) {
-    var dbRef = database.ref().child('/users/');
+    var dbRef = database.ref().child('users');
+    var compAllUsers = [];
+    var compAllFriends = [];
 
     $scope.allUsers = $firebaseArray(dbRef);
     auth.onAuthStateChanged(function(user) {
@@ -79,33 +81,37 @@ app.controller("friendsCtrl", function($scope, $firebaseArray) {
 
     auth.onAuthStateChanged(function(user) {
         var friendRef = database.ref().child('users').child(user.uid).child('myFriends');
+
         var arrayFriends = $firebaseArray(friendRef);
         var everyUser = $firebaseArray(dbRef);
-        var compAllUsers = [];
-        var compAllFriends = [];
 
-
-        dbRef.once('value').then(function(snapshot){
-            snapshot.forEach(function(data){
-                compAllUsers.push(data.key);
+        angular.forEach(arrayFriends, function(value1, key1) {
+            angular.forEach(everyUser, function(value2, key2) {
+                if ( value1.friendID != value2.uid ) {
+                    console.log(value2.uid);
+                } else {
+                    console.log("hey");
+                }
             });
         });
-        friendRef.once('value').then(function(snapshot) {
-            snapshot.forEach(function(data){
-                compAllFriends.push(data.val().friendID);
-            });
-        });
+        // dbRef.once('value').then(function(snapshot){
+        //     snapshot.forEach(function(data){
+        //         compAllUsers.$add(data.key);
+        //     });
+        // });
+        // friendRef.once('value').then(function(snapshot) {
+        //     snapshot.forEach(function(data){
+        //         compAllFriends.$add(data.val().friendID);
+        //     });
+        // });
 
         $scope.allFriends = arrayFriends;
+        // $scope.everyUser = everyUser;
 
         $scope.deleteFriend = function(key) {
             arrayFriends.$remove(key);
         }
-
-
-
     });
-
 
 });
 
